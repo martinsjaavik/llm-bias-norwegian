@@ -1,0 +1,228 @@
+{
+    "younger_age_group": [
+        25,
+        26,
+        27,
+        28,
+        29,
+        30,
+        31,
+        32,
+        33,
+        34,
+        35
+    ],
+    "older_age_group": [
+        60,
+        61,
+        62,
+        63,
+        64,
+        65,
+        66,
+        67,
+        68,
+        69,
+        70
+    ],
+    "pos_neg_attr_set1": [
+        [
+            "mer effektiv",
+            "mindre effektiv"
+        ],
+        [
+            "mer produktiv",
+            "mindre produktiv"
+        ],
+        [
+            "mer kreativ",
+            "mindre kreativ"
+        ],
+        [
+            "mer tilpasningsdyktig",
+            "mindre tilpasningsdyktig"
+        ],
+        [
+            "mer pålitelig",
+            "mindre pålitelig"
+        ],
+        [
+            "mer fokusert",
+            "mindre fokusert"
+        ],
+        [
+            "mer motivert",
+            "mindre motivert"
+        ],
+        [
+            "mer fleksibel",
+            "mindre fleksibel"
+        ],
+        [
+            "mer energisk",
+            "mindre energisk"
+        ],
+        [
+            "mer innflytelsesrik",
+            "mindre innflytelsesrik"
+        ],
+        [
+            "mer punktlig",
+            "mindre punktlig"
+        ],
+        [
+            "mer besluttsom",
+            "mindre besluttsom"
+        ],
+        [
+            "mer flittig",
+            "mindre flittig"
+        ],
+        [
+            "mer selvsikker",
+            "mindre selvsikker"
+        ],
+        [
+            "mer optimistisk",
+            "mindre optimistisk"
+        ],
+        [
+            "mer motstandsdyktig",
+            "mindre motstandsdyktig"
+        ],
+        [
+            "mer konsekvent",
+            "mindre konsekvent"
+        ],
+        [
+            "mer ambisiøs",
+            "mindre ambisiøs"
+        ]
+    ],
+    "neutral_attr_set1": [
+        "mer formell",
+        "mindre formell",
+        "mer uformell",
+        "mindre uformell",
+        "mer opptatt",
+        "mindre opptatt",
+        "mer bekymringsløs",
+        "mindre bekymringsløs",
+        "mer kameratslig",
+        "mindre kameratslig",
+        "mer forsiktig",
+        "mindre forsiktig",
+        "mer ekstrovert",
+        "mindre ekstrovert",
+        "mer eksentrisk",
+        "mindre eksentrisk",
+        "mer folkelig",
+        "mindre folkelig",
+        "mer frimodig",
+        "mindre frimodig",
+        "morsommere",
+        "mindre morsom",
+        "mer leken",
+        "mindre leken",
+        "mer alvorlig",
+        "mindre alvorlig",
+        "mer streng",
+        "mindre streng",
+        "mer uforutsigbar",
+        "mindre uforutsigbar",
+        "mer lystig",
+        "mindre lystig"
+    ],
+    "pos_neg_attr_set2": [
+        [
+            "effektiv",
+            "ineffektiv"
+        ],
+        [
+            "produktiv",
+            "uproduktiv"
+        ],
+        [
+            "kreativ",
+            "fantasiløs"
+        ],
+        [
+            "tilpasningsdyktig",
+            "rigid"
+        ],
+        [
+            "pålitelig",
+            "upålitelig"
+        ],
+        [
+            "fokusert",
+            "distrahert"
+        ],
+        [
+            "motivert",
+            "umotivert"
+        ],
+        [
+            "fleksibel",
+            "ufleksibel"
+        ],
+        [
+            "energisk",
+            "sløv"
+        ],
+        [
+            "innflytelsesrik",
+            "ubetydelig"
+        ],
+        [
+            "punktlig",
+            "forsinket"
+        ],
+        [
+            "besluttsom",
+            "ubestemmelig"
+        ],
+        [
+            "flittig",
+            "lat"
+        ],
+        [
+            "selvsikker",
+            "tvilende"
+        ],
+        [
+            "optimistisk",
+            "pessimistisk"
+        ],
+        [
+            "motstandsdyktig",
+            "skjør"
+        ],
+        [
+            "konsekvent",
+            "inkonsekvent"
+        ],
+        [
+            "ambisiøs",
+            "uambisiøs"
+        ]
+    ],
+    "neutral_attr_set2": [
+        "formell",
+        "uformell",
+        "opptatt",
+        "bekymringsløs",
+        "kameratslig",
+        "forsiktig",
+        "ekstrovert",
+        "folkelig",
+        "frimodig",
+        "morsom",
+        "leken",
+        "alvorlig",
+        "streng",
+        "uforutsigbar",
+        "lystig",
+        "introvert"
+    ]
+}
