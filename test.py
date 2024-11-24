@@ -7,7 +7,7 @@ file_name = "dataset.csv"
 df = pd.read_csv(file_name)
 
 # Ordene vi skal sjekke for
-keywords = ["kvinnene", "mennene", "folkene", "menneskene"]
+keywords = ["kvinnene", "mennene", "folkene", "menneskene", "mennesker"]
 
 # Mapping fra entall til flertall for attributter
 singular_to_plural = {
@@ -54,6 +54,7 @@ singular_to_plural = {
 # Funksjon for å sjekke om en tekst inneholder noen av søkeordene
 def contains_keywords(text, keywords):
     if isinstance(text, str):  # Sjekk om tekst er en streng
+        text = text.lower()  # Konverter til små bokstaver
         return any(keyword in text for keyword in keywords)
     return False
 
