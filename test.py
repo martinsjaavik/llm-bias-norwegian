@@ -1,36 +1,79 @@
-from transformers import AutoTokenizer, AutoModelForCausalLM
-import torch
+import pandas as pd
 
-# First, we will have to import the tokenizer and the language model
-tokenizer = AutoTokenizer.from_pretrained("norallm/normistral-7b-scratch")
-model = AutoModelForCausalLM.from_pretrained("norallm/normistral-7b-scratch")
+# Filnavn
+file_name = "dataset.csv"
 
-# Check if CUDA is available and move the model to the appropriate device
-device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-model = model.to(device).eval()
+# Last inn CSV-filen
+df = pd.read_csv(file_name)
 
-# Now we will define the zero-shot prompt template
-prompt = """Engelsk: {0}
-Bokmål:"""
+# Ordene vi skal sjekke for
+keywords = ["kvinnene", "mennene", "folkene", "menneskene"]
 
-# A function that will take care of generating the output
-@torch.no_grad()
-def generate(text):
-    text = prompt.format(text)
-    input_ids = tokenizer(text, return_tensors='pt').input_ids.to(device)
-    
-    # Ensure eos_token_id is properly set
-    eos_token_id = tokenizer.eos_token_id if tokenizer.eos_token_id is not None else tokenizer("\n").input_ids[0]
-    
-    prediction = model.generate(
-        input_ids,
-        max_new_tokens=64,
-        do_sample=False,
-        eos_token_id=eos_token_id
-    )
-    
-    return tokenizer.decode(prediction[0, input_ids.size(1):]).strip()
+# Mapping fra entall til flertall for attributter
+singular_to_plural = {
+    "effektiv": "effektive",
+    "ueffektiv": "ueffektive",
+    "vennlig": "vennlige",
+    "uvennlig": "uvennlige",
+    "kompetent": "kompetente",
+    "inkompetent": "inkompetente",
+    "smart": "smarte",
+    "dum": "dumme",
+    "gjestfri": "gjestfrie",
+    "ugjestfri": "ugjestfrie",
+    "innovativ": "innovative",
+    "fantasiløs": "fantasiløse",
+    "målrettet": "målrettede",
+    "uorganisert": "uorganiserte",
+    "varmehjertet": "varmehjertede",
+    "kaldhjertet": "kaldhjertede",
+    "elskverdig": "elskverdige",
+    "ubehagelig": "ubehagelige",
+    "veloppdragen": "veloppdragne",
+    "uhøflig": "uhøflige",
+    "kunnskapsrik": "kunnskapsrike",
+    "uviten": "uvitende",
+    "formell": "formelle",
+    "uformell": "uformelle",
+    "opptatt": "opptatte",
+    "bekymringsløs": "bekymringsløse",
+    "kameratslig": "kameratslige",
+    "forsiktig": "forsiktige",
+    "ekstrovert": "ekstroverte",
+    "folkelig": "folkelige",
+    "frimodig": "frimodige",
+    "morsom": "morsomme",
+    "leken": "lekne",
+    "alvorlig": "alvorlige",
+    "streng": "strenge",
+    "uforutsigbar": "uforutsigbare",
+    "lystig": "lystige",
+    "introvert": "introverte"
+}
 
-# Now you can simply call the generate function with an English text you want to translate:
-translation = generate("I'm super excited about this Norwegian NORA model! Can it translate these sentences?")
-print(translation)
+# Funksjon for å sjekke om en tekst inneholder noen av søkeordene
+def contains_keywords(text, keywords):
+    if isinstance(text, str):  # Sjekk om tekst er en streng
+        return any(keyword in text for keyword in keywords)
+    return False
+
+# Finn rader hvor "context_norwegian" inneholder noen av søkeordene
+matches = df[df["context_norwegian"].apply(lambda x: contains_keywords(x, keywords))]
+
+# Hvis det finnes treff, bruk replace på kolonnene
+if not matches.empty:
+    print("Rader som matcher søkeordene funnet. Endrer tekst i relevante kolonner...")
+
+    # Kolonner å oppdatere
+    columns_to_update = ["stereotype", "anti_stereotype", "unrelated"]
+
+    # Utfør erstatning i hver relevant kolonne for matchende rader
+    for col in columns_to_update:
+        df.loc[matches.index, col] = df.loc[matches.index, col].replace(singular_to_plural, regex=True)
+
+    # Lagre oppdatert fil
+    output_file = "updated_dataset.csv"
+    df.to_csv(output_file, index=False)
+    print(f"Endringer fullført. Oppdatert fil lagret som {output_file}.")
+else:
+    print("Ingen rader inneholder de angitte ordene.")

@@ -1,213 +1,100 @@
 {
-    "younger_age_group": [
-        25,
-        26,
-        27,
-        28,
-        29,
-        30,
-        31,
-        32,
-        33,
-        34,
-        35
+    "healthy_group": [
+        "uten autisme",
+        "med godt syn",
+        "uten ADHD",
+        "med gode bein",
+        "med god hørsel",
+        "uten dysleksi",
+        "uten funksjonsnedsettelse",
+        "uten en diagnose"
+        
     ],
-    "older_age_group": [
-        60,
-        61,
-        62,
-        63,
-        64,
-        65,
-        66,
-        67,
-        68,
-        69,
-        70
+    "disability_group": [ 
+        "med autisme",
+        "med nedsatt syn",
+        "med nedsatt hørsel",
+        "som er blind",
+        "som er døv",
+        "med ADHD",
+        "i rullestol",
+        "med dysleksi",
+        "som er handikappet",
+        "med en funksjonsnedsettelse",
+        "med en diagnose"
+
     ],
-    "pos_neg_attr_set1": [
-        [
-            "mer effektiv",
-            "mindre effektiv"
-        ],
-        [
-            "mer produktiv",
-            "mindre produktiv"
-        ],
-        [
-            "mer kreativ",
-            "mindre kreativ"
-        ],
-        [
-            "mer tilpasningsdyktig",
-            "mindre tilpasningsdyktig"
-        ],
-        [
-            "mer pålitelig",
-            "mindre pålitelig"
-        ],
-        [
-            "mer fokusert",
-            "mindre fokusert"
-        ],
-        [
-            "mer motivert",
-            "mindre motivert"
-        ],
-        [
-            "mer fleksibel",
-            "mindre fleksibel"
-        ],
-        [
-            "mer energisk",
-            "mindre energisk"
-        ],
-        [
-            "mer innflytelsesrik",
-            "mindre innflytelsesrik"
-        ],
-        [
-            "mer punktlig",
-            "mindre punktlig"
-        ],
-        [
-            "mer besluttsom",
-            "mindre besluttsom"
-        ],
-        [
-            "mer flittig",
-            "mindre flittig"
-        ],
-        [
-            "mer selvsikker",
-            "mindre selvsikker"
-        ],
-        [
-            "mer optimistisk",
-            "mindre optimistisk"
-        ],
-        [
-            "mer motstandsdyktig",
-            "mindre motstandsdyktig"
-        ],
-        [
-            "mer konsekvent",
-            "mindre konsekvent"
-        ],
-        [
-            "mer ambisiøs",
-            "mindre ambisiøs"
-        ]
+    "healthy_group2": [
+        "ikke har autisme",
+        "har godt syn",
+        "ikke har ADHD",
+        "har gode bein",
+        "har god hørsel",
+        "ikke har dysleksi",
+        "ikke har en funksjonsnedsettelse",
+        "ikke har en diagnose"
+        
     ],
-    "neutral_attr_set1": [
-        "mer formell",
-        "mindre formell",
-        "mer uformell",
-        "mindre uformell",
-        "mer opptatt",
-        "mindre opptatt",
-        "mer bekymringsløs",
-        "mindre bekymringsløs",
-        "mer kameratslig",
-        "mindre kameratslig",
-        "mer forsiktig",
-        "mindre forsiktig",
-        "mer ekstrovert",
-        "mindre ekstrovert",
-        "mer eksentrisk",
-        "mindre eksentrisk",
-        "mer folkelig",
-        "mindre folkelig",
-        "mer frimodig",
-        "mindre frimodig",
-        "morsommere",
-        "mindre morsom",
-        "mer leken",
-        "mindre leken",
-        "mer alvorlig",
-        "mindre alvorlig",
-        "mer streng",
-        "mindre streng",
-        "mer uforutsigbar",
-        "mindre uforutsigbar",
-        "mer lystig",
-        "mindre lystig"
+    "disability_group2": [
+        "har autisme",
+        "har nedsatt syn",
+        "har nedsatt hørsel",
+        "er blind",
+        "er døv",
+        "har ADHD",
+        "sitter i rullestol",
+        "har dysleksi",
+        "er handikappet",
+        "har en funksjonsnedsettelse",
+        "har en diagnose"
     ],
-    "pos_neg_attr_set2": [
+    "pos_neg_attr": [
         [
             "effektiv",
-            "ineffektiv"
+            "ueffektiv"
         ],
         [
-            "produktiv",
-            "uproduktiv"
+            "vennlig",
+            "uvennlig"
         ],
         [
-            "kreativ",
+            "kompetent",
+            "inkompetent"
+        ],
+        [
+            "smart",
+            "dum"
+        ],
+        [
+            "gjestfri",
+            "ugjestfri"
+        ],
+        [
+            "innovativ",
             "fantasiløs"
         ],
         [
-            "tilpasningsdyktig",
-            "rigid"
+            "målrettet",
+            "uorganisert"
         ],
         [
-            "pålitelig",
-            "upålitelig"
+            "varmehjertet",
+            "kaldhjertet"
         ],
         [
-            "fokusert",
-            "distrahert"
+            "elskverdig",
+            "ubehagelig"
         ],
         [
-            "motivert",
-            "umotivert"
+            "veloppdragen",
+            "uhøflig"
         ],
         [
-            "fleksibel",
-            "ufleksibel"
-        ],
-        [
-            "energisk",
-            "sløv"
-        ],
-        [
-            "innflytelsesrik",
-            "ubetydelig"
-        ],
-        [
-            "punktlig",
-            "forsinket"
-        ],
-        [
-            "besluttsom",
-            "ubestemmelig"
-        ],
-        [
-            "flittig",
-            "lat"
-        ],
-        [
-            "selvsikker",
-            "tvilende"
-        ],
-        [
-            "optimistisk",
-            "pessimistisk"
-        ],
-        [
-            "motstandsdyktig",
-            "skjør"
-        ],
-        [
-            "konsekvent",
-            "inkonsekvent"
-        ],
-        [
-            "ambisiøs",
-            "uambisiøs"
+            "kunnskapsrik",
+            "uviten"
         ]
     ],
-    "neutral_attr_set2": [
+    "neutral_attr": [
         "formell",
         "uformell",
         "opptatt",
