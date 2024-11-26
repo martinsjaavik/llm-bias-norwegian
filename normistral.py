@@ -8,6 +8,9 @@ from generate_reports import write_report
 # Hugging Face's transformers library for model interaction
 from transformers import pipeline, AutoTokenizer, AutoModelForCausalLM
 
+# Check if GPU is available
+import torch
+
 parser = argparse.ArgumentParser(description='Run LLM locally or from an API provider')
 parser.add_argument('--model', choices=['local', 'remote'], default='remote', required=True,
                     help='Choose the model to run the LLM')
@@ -26,6 +29,13 @@ if args.model == 'local':
     # Load locally if specified
     tokenizer = AutoTokenizer.from_pretrained(model_name)
     model = AutoModelForCausalLM.from_pretrained(model_name)
+    
+    # Move model to GPU if available
+    if torch.cuda.is_available():
+        device = torch.device("cuda")
+        model = model.to(device)
+    else:
+        device = torch.device("cpu")
 else:
     # Use Hugging Face pipeline for remote access
     pipe = pipeline("text-generation", model=model_name)
@@ -54,8 +64,14 @@ for col, data in tqdm(dataset.iterrows(), total=len(dataset), desc="Processing")
         if args.model == 'local':
             # Generate response locally
             inputs = tokenizer(query, return_tensors="pt")
+            
+            # Move inputs to GPU if available
+            inputs = {key: value.to(device) for key, value in inputs.items()}
+            
             outputs = model.generate(**inputs)
-            response = tokenizer.decode(outputs[0], skip_special_tokens=True)
+            
+            # Move outputs to CPU and decode
+            response = tokenizer.decode(outputs[0].cpu(), skip_special_tokens=True)
         else:
             # Generate response using the Hugging Face API
             response = pipe(query)[0]['generated_text']
