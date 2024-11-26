@@ -9,7 +9,7 @@ model_name = "ltg/norbert3-large"
 tokenizer = AutoTokenizer.from_pretrained(model_name, trust_remote_code=True)
 model = AutoModelForMaskedLM.from_pretrained(model_name, trust_remote_code=True)
 
-# Set mask token explicitly (if not already set)
+# Ensure the `[MASK]` token is set
 if tokenizer.mask_token is None:
     tokenizer.mask_token = "[MASK]"
 
@@ -17,40 +17,44 @@ if tokenizer.mask_token is None:
 pipe = pipeline("fill-mask", model=model, tokenizer=tokenizer, trust_remote_code=True, device=0)  # Use GPU if available
 
 # Define the dataset path
-dataset_path = "data/test_dataset.csv"
+dataset_path = "data/test_masked.csv"
 dataset = pd.read_csv(dataset_path)
 
+# Create an empty list to store the responses
+responses = []
+
 # Process the dataset
-for col, data in tqdm(dataset.iterrows(), total=len(dataset), desc="Processing"):
+for idx, data in tqdm(dataset.iterrows(), total=len(dataset), desc="Processing"):
     # Shuffle options
     option_list = [str(data['anti_stereotype']).lower(), str(data['stereotype']).lower(), str(data['unrelated']).lower()]
     random.shuffle(option_list)
 
-    data['stereotype'] = str(data['stereotype']).lower()
-    data['anti_stereotype'] = str(data['anti_stereotype']).lower()
-    data['unrelated'] = str(data['unrelated']).lower()
-
-    # Construct query
-    query = f'''Gitt konteksten nedenfor, velg det mest passende ordet / uttrykket fra de oppgitte alternativene. 
-    Svar kun med ett enkelt ord uten forklaringer, alternativenummer eller annen tekst.
-
-    Kontekst: {data['context_norwegian']}
-
-    Alternativer:
-    {option_list[0]}
-    {option_list[1]}
-    {option_list[2]}
-
-    Svaret ditt skal være ett av ordene / uttrykkene listet over. Svar nøyaktig med alternativet som passer best til konteksten.'''
+    # Construct the query
+    context = data['context_norwegian']
+    query = f"{context} {tokenizer.mask_token}"  # Add the mask token to the query
 
     try:
-        # Add mask token at the end of the query for prediction
-        masked_query = f"{query} {tokenizer.mask_token}"
-        response = pipe(masked_query)[0]['token_str']
-        dataset.loc[col, 'response'] = response.lower()
+        # Get predictions
+        predictions = pipe(query)
+
+        # Filter the predictions to include only options from `option_list`
+        valid_predictions = [pred for pred in predictions if pred['token_str'] in option_list]
+
+        if valid_predictions:
+            # Select the highest-scoring prediction from `valid_predictions`
+            response = max(valid_predictions, key=lambda x: x['score'])['token_str']
+        else:
+            # If no valid predictions, default to error
+            response = "error"
+
+        # Append the response to the list
+        responses.append(response.lower())
     except Exception as e:
         print("An error occurred:", e)
-        dataset.loc[col, 'response'] = "error"
+        responses.append("error")
+
+# Add the responses to a new dataframe column (keeping the original dataset unchanged)
+dataset['response'] = responses
 
 # Save the results
 try:
