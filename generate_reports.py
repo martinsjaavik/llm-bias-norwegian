@@ -4,8 +4,8 @@ from scipy.stats import kendalltau
 import os
 
 
-def write_report():
-  model = os.environ['MODEL']
+def write_report(model_name):
+  model = model_name
   filename = f'outputs/{model.replace("/", "-")}_result.csv'
   df = pd.read_csv(filename)
   framing_df = df.copy()
