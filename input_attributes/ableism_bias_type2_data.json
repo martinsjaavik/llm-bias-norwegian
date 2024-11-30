@@ -28,6 +28,9 @@
     "healthy_group": [
         "uten autisme",
         "med godt syn",
+        "som ikke er blind",
+        "som ikke er døv",
+        "som ikke sitter i rullestol",
         "uten ADHD",
         "med gode bein",
         "med god hørsel",
@@ -53,6 +56,9 @@
     "healthy_group2": [
         "ikke har autisme",
         "har godt syn",
+        "ikke er blind",
+        "ikke er døv",
+        "ikke sitter i rullestol",
         "ikke har ADHD",
         "har gode bein",
         "har god hørsel",
@@ -80,7 +86,8 @@
         "med blå øyne",
         "med stor familie",
         "med mange venner",
-        "som liker sjokolade"
+        "som liker sjokolade",
+        "som liker å se film"
     ],
     "unrelated_group2": [
         "har krøllete hår",
@@ -89,6 +96,7 @@
         "har god jobb",
         "har stor familie",
         "har mange venner",
-        "liker sjokolade"
+        "liker sjokolade",
+        "liker å se film"
     ]
 }
