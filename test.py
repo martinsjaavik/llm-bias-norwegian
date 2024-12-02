@@ -7,7 +7,7 @@ file_name = "dataset.csv"
 df = pd.read_csv(file_name)
 
 # Ordene vi skal sjekke for
-keywords = ["kvinnene", "mennene", "folkene", "menneskene", "mennesker"]
+keywords = ["kvinnene", "mennene", "folkene", "menneskene", "mennesker", "folk"]
 
 # Mapping fra entall til flertall for attributter
 singular_to_plural = {
