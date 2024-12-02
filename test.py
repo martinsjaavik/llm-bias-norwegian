@@ -50,6 +50,7 @@ singular_to_plural = {
     "lystig": "lystige",
     "introvert": "introverte"
 }
+### ALLE ATTRIBUTER
 
 # Funksjon for å sjekke om en tekst inneholder noen av søkeordene
 def contains_keywords(text, keywords):

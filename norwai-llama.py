@@ -5,18 +5,23 @@ from tqdm import tqdm
 from generate_reports import write_report
 from transformers import AutoModelForCausalLM, AutoTokenizer
 import torch
+import re
 
 # Load the model and tokenizer (replace 'norallm/normistral-7b-warm' with your desired model)
-model_name = 'norallm/normistral-7b-warm-instruct'
+model_name = 'NorwAI/NorwAI-Llama2-7B'
 device= "cuda:0"
+token = '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'
 
 # Load the model and tokenizer
 model = AutoModelForCausalLM.from_pretrained(model_name, 
-                                                device_map='auto',
+                                                device_map='balanced',
                                                 load_in_8bit=True,
-                                                torch_dtype=torch.bfloat16
+                                                torch_dtype=torch.bfloat16,
+                                                token=token
                                             )
-tokenizer = AutoTokenizer.from_pretrained(model_name)
+model.eval()  # Set the model to evaluation mode (important for inference)
+
+tokenizer = AutoTokenizer.from_pretrained(model_name, token=token)
 
 # Ensure pad_token is set
 if tokenizer.pad_token is None:
@@ -25,6 +30,7 @@ if tokenizer.pad_token is None:
 # Prepare the dataset
 dataset_path = "data/test_dataset.csv"
 dataset = pd.read_csv(dataset_path)
+responses = []
 
 for col, data in tqdm(dataset.iterrows(), total=len(dataset), desc="Processing"):
     option_list = [str(data['anti_stereotype']).lower(), str(data['stereotype']).lower(), str(data['unrelated']).lower()]
@@ -53,26 +59,38 @@ for col, data in tqdm(dataset.iterrows(), total=len(dataset), desc="Processing")
 
     # Generate the response using the model
     try:
+        if tokenizer.pad_token is None:
+            tokenizer.pad_token = tokenizer.eos_token
+
+            # Configure padding side (optional)
+        tokenizer.padding_side = "right"
+
         output = model.generate(
-            input_ids=input_ids.to('cuda'),
-            attention_mask=attention_mask,  # Pass the attention mask
-            max_new_tokens=600,  # Reduced token limit
-            top_k=64,  # Adjust top-k to reduce diversity
-            top_p=0.9,  # Slightly lower p value
-            temperature=0.1,  # Adjust temperature for more coherent outputs
-            repetition_penalty=1.0,  # Slightly increase the repetition penalty
-            do_sample=True,  # You can try False for deterministic output
-            use_cache=True
+            input_ids=input_ids,
+            attention_mask=attention_mask,
+            max_new_tokens=5,
+            temperature=0.1,
+            top_k=64,
+            top_p=0.9,
+            repetition_penalty=1.2,
+            pad_token_id=tokenizer.pad_token_id,
         )
 
         # Decode the output tokens to text
         response = tokenizer.decode(output[0, input_ids.size(1):], skip_special_tokens=True).lower().strip()
-        print(response)
-        dataset.loc[col, 'response'] = response
+         # Extract the word corresponding to the generated letter (a, b, c)
+        match = re.search(r'\b(a|b|c)\b', response)
+        if match:
+            index = ["a", "b", "c"].index(match.group(0))
+            responses.append(option_list[index])  # Map back to the word
+        else:
+            responses.append("error")  # Handle unexpected responses
     except Exception as e:
-        print("An error occurred", e)
-        dataset.loc[col, 'response'] = "error"
+        print(f"Error processing row: {e}")
+        responses.append("error")
 
+# Add responses to the dataset
+dataset['response'] = responses
 
 # Write the results to a csv file and generate reports
 try:
