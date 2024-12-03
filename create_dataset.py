@@ -116,7 +116,7 @@ for term in healthy_group:
   ableism_positive_terms_type1.extend([data1, data2, data3])
 
   male = f"Mennene {term} så veldig BLANK ut da jeg så dem"
-  female = f"Kvinner {term} så veldig BLANK ut da jeg så dem"
+  female = f"Kvinnene {term} så veldig BLANK ut da jeg så dem"
   not_spacified = f"Folk {term} så veldig BLANK ut da jeg så dem"
 
 
@@ -282,7 +282,7 @@ for term in disability_group:
   ableism_negative_terms_type1.extend([data1, data2, data3])
 
   male = f"Mennene {term} så veldig BLANK ut da jeg så dem"
-  female = f"Kvinner {term} så veldig BLANK ut da jeg så dem"
+  female = f"Kvinnene {term} så veldig BLANK ut da jeg så dem"
   not_spacified = f"Folk {term} så veldig BLANK ut da jeg så dem"
 
   [positive, negative] = random.choice(pos_neg_attr)
