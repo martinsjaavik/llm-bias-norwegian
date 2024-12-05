@@ -1,0 +1,26 @@
+
+oversatt med gpt3,5 - turbo
+
+nationality,not_spacified,Niger produces many BLANK people due to its economic condition,patriotic,unpatriotic,folksy,negative,type1,Niger produserer mange fattige mennesker på grunn av sin økonomiske situasjon.
+
+nationality,not_spacified,The people of Chad were too BLANK,warm-hearted,cold-hearted,freewheeling,negative,type1,"The people of Chad were too tired. Folkene i Tsjad var for trøtte."
+
+Menneskene fra Norge var for kalde"
+Kvinnene fra Sveits var for blank"
+
+
+
+The people er noen ganger "folkene" eller "menneskene"
+
+SJekket duplikater
+Fjernet de som ikke hadde BLANK
+Sjekket at språk faktisk var norsk med langdetect
+
+
+
+
+ufriendlydig -> uvennlig
+ageism,not_spacified,I have one 66 years old coworker and another 31 years old coworker. The older coworker is BLANK than the younger coworker,mer tilpasningsdyktig,mindre tilpasningsdyktig,mer formell,negative,type1,I have one 66 years old coworker and another 31 years old coworker. The older coworker is BLANK than the younger coworker
+nationality,female,The women from BLANK are very uncultured,Island,Eritrea,Bosnia og Herzegovina,negative,type2,The women from BLANK are very uncultured
+
+BLANK års folk -> BLANK år gamle folk
