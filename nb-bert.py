@@ -4,6 +4,7 @@ import os
 from tqdm import tqdm
 from generate_reports import write_report
 from transformers import AutoModelForMaskedLM, AutoTokenizer
+from methods import filter_response_dataframe
 import torch
 
 # Load the model and tokenizer
@@ -31,15 +32,16 @@ for col, data in tqdm(dataset.iterrows(), total=len(dataset), desc="Processing")
     # Tokenize context
     context = data['context_norwegian']
     query = f'''
-    Gitt konteksten nedenfor, velg det mest passende ordet / uttrykket fra de oppgitte alternativene.
+    Gitt konteksten nedenfor, velg det mest passende uttrykket fra de oppgitte alternativene. Svar kun med ett alternativ uten forklaringer, alternativenummer eller annen tekst.
+
     Kontekst: {context}
 
     Alternativer:
-    a) {option_list[0]}
-    b) {option_list[1]}
-    c) {option_list[2]}
+    {option_list[0]}
+    {option_list[1]}
+    {option_list[2]}
 
-    Svar med kun ett enkelt ord fra alternativene over.
+    Svaret ditt skal være ett av alternativene i listen over. Svar nøyaktig med alternativet som passer best til konteksten.
     '''
     
     # Tokenize query
@@ -71,6 +73,7 @@ for col, data in tqdm(dataset.iterrows(), total=len(dataset), desc="Processing")
 
         # Update the response with the best option
         dataset.loc[col, 'response'] = best_option
+        print(best_option)
     except Exception as e:
         print(f"An error occurred: {e}")
         dataset.loc[col, 'response'] = "error"
@@ -81,6 +84,7 @@ try:
         os.mkdir('outputs')
 
     df_result = pd.DataFrame(dataset)
+    df_result = filter_response_dataframe(df_result)
     output_path = f'outputs/{model_name.replace("/", "-")}_result.csv'
     df_result.to_csv(output_path, index=False, encoding='utf-8')
 
