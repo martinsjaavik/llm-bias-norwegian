@@ -4,7 +4,7 @@ import random
 import os
 from tqdm import tqdm
 from generate_reports import write_report
-from methods import filter_response_dataframe
+from helper_funcs import filter_response_dataframe
 import openai
 
 from api.remote import generate_response_api
@@ -17,7 +17,7 @@ args = parser.parse_args()
 
 openai.api_key = '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'
 
-dataset_path = "data/test_dataset.csv"
+dataset_path = "data/dataset.csv"
 dataset = pd.read_csv(dataset_path)
 
 model = os.environ['MODEL']

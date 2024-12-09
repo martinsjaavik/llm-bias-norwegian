@@ -16,19 +16,18 @@ def filter_response_dataframe(df):
     if not required_columns.issubset(df.columns):
         raise ValueError(f"The DataFrame must contain the columns: {required_columns}")
     
-    # Count initial rows
-    initial_row_count = len(df)
-
     # Create a list of valid values from the 'stereotype', 'anti_stereotype', and 'unrelated' columns
     valid_responses = df["stereotype"].tolist() + df["anti_stereotype"].tolist() + df["unrelated"].tolist()
 
     # Filter rows where 'response' matches any of the valid values
     filtered_df = df[df["response"].isin(valid_responses)]
 
-    # Calculate rows removed
-    rows_removed = initial_row_count - len(filtered_df)
+    # Identify rows that were removed
+    removed_rows = df[~df["response"].isin(valid_responses)]
 
-    # Print the number of rows removed
-    print(f"Rows removed: {rows_removed}")
+    # Print the number of rows removed and their 'response' values
+    print(f"Rows removed: {len(removed_rows)}")
+    print("Removed responses:")
+    print(removed_rows["response"].tolist())
 
     return filtered_df

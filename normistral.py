@@ -5,7 +5,7 @@ from tqdm import tqdm
 from generate_reports import write_report
 from transformers import AutoModelForCausalLM, AutoTokenizer
 import torch
-from methods import filter_response_dataframe
+from helper_funcs import filter_response_dataframe
 
 # Load the model and tokenizer (replace 'norallm/normistral-7b-warm' with your desired model)
 model_name = 'norallm/normistral-7b-warm-instruct'

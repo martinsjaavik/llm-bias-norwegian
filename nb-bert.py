@@ -4,7 +4,7 @@ import os
 from tqdm import tqdm
 from generate_reports import write_report
 from transformers import AutoModelForMaskedLM, AutoTokenizer
-from methods import filter_response_dataframe
+from helper_funcs import filter_response_dataframe
 import torch
 
 # Load the model and tokenizer

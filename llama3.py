@@ -4,7 +4,7 @@ import random
 import os
 from tqdm import tqdm
 from generate_reports import write_report
-from methods import filter_response_dataframe
+from helper_funcs import filter_response_dataframe
 
 from api.remote import generate_response_api
 from api.local import generate_response_local
