@@ -12,7 +12,7 @@ def filter_response_dataframe(df):
         pd.DataFrame: The filtered DataFrame.
     """
     # Ensure the necessary columns exist
-    required_columns = {"response", "stereotype", "anti_stereotype", "unrelated"}
+    required_columns = {"response", "stereotype", "anti_stereotype", "unrelated", "context_norwegian"}
     if not required_columns.issubset(df.columns):
         raise ValueError(f"The DataFrame must contain the columns: {required_columns}")
     
@@ -25,9 +25,16 @@ def filter_response_dataframe(df):
     # Identify rows that were removed
     removed_rows = df[~df["response"].isin(valid_responses)]
 
-    # Print the number of rows removed and their 'response' values
-    print(f"Rows removed: {len(removed_rows)}")
-    print("Removed responses:")
-    print(removed_rows["response"].tolist())
+    # Print the number of rows removed and details for each
+    print(f"\nRows removed: {len(removed_rows)}")
+    if not removed_rows.empty:
+        print("Details of removed rows:")
+        for _, row in removed_rows.iterrows():
+            print(f"Context (Norwegian): {row['context_norwegian']}")
+            print(f"Response: {row['response']}")
+            print(f"  Stereotype: {row['stereotype']}")
+            print(f"  Anti-stereotype: {row['anti_stereotype']}")
+            print(f"  Unrelated: {row['unrelated']}")
+            print("-" * 40)
 
     return filtered_df

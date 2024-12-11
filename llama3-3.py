@@ -3,18 +3,19 @@ import random
 import os
 from tqdm import tqdm
 from generate_reports import write_report
-from transformers import AutoModelForCausalLM, AutoTokenizer
+from transformers import AutoModelForCausalLM, AutoTokenizer, BitsAndBytesConfig
 import torch
 from helper_funcs import filter_response_dataframe
 
 # Load the model and tokenizer (replace 'norallm/normistral-7b-warm' with your desired model)
-model_name = 'norallm/normistral-7b-warm-instruct'
+model_name = "meta-llama/Llama-3.3-70B-Instruct"
+quantization_config = BitsAndBytesConfig(load_in_8bit=True)
 device= "cuda:0"
 
 # Load the model and tokenizer
 model = AutoModelForCausalLM.from_pretrained(model_name, 
                                                 device_map='auto',
-                                                load_in_8bit=True,
+                                                quantization_config=quantization_config,
                                                 torch_dtype=torch.bfloat16
                                             )
 tokenizer = AutoTokenizer.from_pretrained(model_name)
@@ -24,7 +25,7 @@ if tokenizer.pad_token is None:
     tokenizer.pad_token = tokenizer.eos_token
 
 # Prepare the dataset
-dataset_path = "data/dataset.csv"
+dataset_path = "data/test_dataset.csv"
 dataset = pd.read_csv(dataset_path)
 
 for col, data in tqdm(dataset.iterrows(), total=len(dataset), desc="Processing"):
@@ -70,7 +71,7 @@ for col, data in tqdm(dataset.iterrows(), total=len(dataset), desc="Processing")
     # Tokenize the input query with attention mask
     inputs = tokenizer(query, return_tensors="pt", padding=True, truncation=True)
     input_ids = inputs['input_ids'].to('cuda')
-    attention_mask = inputs['attention_mask']
+
 
     # Generate the response using the model
     try:
@@ -80,16 +81,7 @@ for col, data in tqdm(dataset.iterrows(), total=len(dataset), desc="Processing")
             # Configure padding side (optional)
         tokenizer.padding_side = "right"
 
-        output = model.generate(
-            input_ids,
-            max_new_tokens=10,
-            top_k=64,  # top-k sampling
-            top_p=0.9,  # nucleus sampling
-            temperature=0.3,  # a low temparature to make the outputs less chaotic
-            repetition_penalty=1.0,  # turn the repetition penalty off, having it on can lead to very bad outputs
-            do_sample=True,  # randomly sample the outputs
-            use_cache=True  # speed-up generation
-)
+        output = model.generate(**input_ids, max_new_tokens=10)
 
         # Decode the output tokens to text
         response = tokenizer.decode(output[0, input_ids.size(1):], skip_special_tokens=True).lower().strip()

@@ -86,7 +86,7 @@ def write_report(model_name):
   type1_negative = []
   type1_negative.append(get_bias_type_result(df, 'type1', 'negative', 'nationality'))
   type1_negative.append(get_bias_type_result(df, 'type1', 'negative', 'ageism'))
-  type1_negative.append(get_bias_type_result(df, 'type1', 'positive', 'ableism'))
+  type1_negative.append(get_bias_type_result(df, 'type1', 'negative', 'ableism'))
 
   type1_negative_dict = {'bias_type': [], 'target_term': [], 'positive': [], 'negative': [], 'unrelated': [], 'total': [], 'neg_to_pos': [],'neg_to_neg': [],'neg_to_neu': []}
 
@@ -189,7 +189,7 @@ def write_report(model_name):
   type2_negative = []
   type2_negative.append(get_bias_type_result(df, 'type2', 'negative', 'nationality'))
   type2_negative.append(get_bias_type_result(df, 'type2', 'negative', 'ageism'))
-  type2_negative.append(get_bias_type_result(df, 'type2', 'positive', 'ableism'))
+  type2_negative.append(get_bias_type_result(df, 'type2', 'negative', 'ableism'))
 
   type2_negative_dict = {'bias_type': [], 'target_term': [], 'positive': [], 'negative': [], 'unrelated': [], 'total': [], 'neg_to_pos': [], 'neg_to_neg': [], 'neg_to_neu': []}
   for value in type2_negative:

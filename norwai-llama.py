@@ -65,7 +65,7 @@ for col, data in tqdm(dataset.iterrows(), total=len(dataset), desc="Processing")
         output = model.generate(
             input_ids=input_ids.to(device),
             attention_mask=attention_mask,  # Pass the attention mask
-            max_new_tokens=5,  # Reduced token limit
+            max_new_tokens=10,  # Reduced token limit
             top_k=64,  # Adjust top-k to reduce diversity
             top_p=0.9,  # Slightly lower p value
             temperature=0.1,  # Adjust temperature for more coherent outputs
