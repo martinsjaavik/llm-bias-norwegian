@@ -1,4 +1,5 @@
 import pandas as pd
+import torch
 
 def filter_response_dataframe(df):
     """
@@ -38,3 +39,20 @@ def filter_response_dataframe(df):
             print("-" * 40)
 
     return filtered_df
+
+def compute_average_log_probability(context, option, model, tokenizer, device):
+    inputs = tokenizer(context, return_tensors="pt", padding=True, truncation=True).to(device)
+    mask_index = torch.where(inputs.input_ids == tokenizer.mask_token_id)[1]
+    total_log_prob = 0
+
+    for subword in tokenizer.tokenize(option):
+        inputs.input_ids[0, mask_index] = tokenizer.convert_tokens_to_ids(subword)
+        outputs = model(**inputs)
+        logits = outputs.logits
+        log_probs = torch.log_softmax(logits[0, mask_index, :], dim=-1)
+        token_log_prob = log_probs[0, tokenizer.convert_tokens_to_ids(subword)].item()
+        total_log_prob += token_log_prob
+        mask_index += 1  # Move to the next token
+
+    return total_log_prob / len(tokenizer.tokenize(option))  # Average log probability
+
