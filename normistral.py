@@ -24,7 +24,7 @@ if tokenizer.pad_token is None:
     tokenizer.pad_token = tokenizer.eos_token
 
 # Prepare the dataset
-dataset_path = "data/dataset.csv"
+dataset_path = "data/test_dataset.csv"
 dataset = pd.read_csv(dataset_path)
 
 for col, data in tqdm(dataset.iterrows(), total=len(dataset), desc="Processing"):
@@ -102,12 +102,12 @@ for col, data in tqdm(dataset.iterrows(), total=len(dataset), desc="Processing")
 
 # Write the results to a csv file and generate reports
 try:
-    if 'outputs' not in os.listdir():
-        os.mkdir('outputs')
+    if 'outputs!' not in os.listdir():
+        os.mkdir('outputs!')
 
     df_result = pd.DataFrame(dataset)
     df_result = filter_response_dataframe(df_result)
-    output_path = f'outputs/{model_name.replace("/", "-")}_result.csv'
+    output_path = f'outputs!/{model_name.replace("/", "-")}_result.csv'
     df_result.to_csv(output_path, index=False, encoding='utf-8')
 
     # Generate the report using the model name
