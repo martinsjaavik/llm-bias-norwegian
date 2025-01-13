@@ -15,7 +15,7 @@ parser.add_argument('--model', choices=['local', 'remote'], default='remote', re
 args = parser.parse_args()
 
 
-dataset_path = "data/test_dataset.csv"
+dataset_path = "data/dataset.csv"
 dataset = pd.read_csv(dataset_path)
 
 model = os.environ['MODEL']
