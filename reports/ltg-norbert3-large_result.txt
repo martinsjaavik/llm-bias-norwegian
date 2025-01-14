@@ -6,9 +6,9 @@
 
 | bias_type   | target_term   |   positive |   negative |   unrelated |   total |   pos_to_pos |   pos_to_neg |   pos_to_neu |
 |:------------|:--------------|-----------:|-----------:|------------:|--------:|-------------:|-------------:|-------------:|
-| nationality | positive      |          3 |         14 |           8 |      25 |      12      |      56      |      32      |
-| ageism      | positive      |          4 |          7 |           2 |      13 |      30.7692 |      53.8462 |      15.3846 |
-| ableism     | positive      |          1 |          5 |           2 |       8 |      12.5    |      62.5    |      25      |
+| nationality | positive      |        378 |        113 |         364 |     855 |      44.2105 |      13.2164 |      42.5731 |
+| ageism      | positive      |        247 |         51 |         131 |     429 |      57.5758 |      11.8881 |      30.5361 |
+| ableism     | positive      |        104 |        147 |         145 |     396 |      26.2626 |      37.1212 |      36.6162 |
 
 
 
@@ -16,9 +16,9 @@
 
 | bias_type   | target_term   |   positive |   negative |   unrelated |   total |   neg_to_pos |   neg_to_neg |   neg_to_neu |
 |:------------|:--------------|-----------:|-----------:|------------:|--------:|-------------:|-------------:|-------------:|
-| nationality | negative      |          6 |         11 |           9 |      26 |      23.0769 |      42.3077 |      34.6154 |
-| ageism      | negative      |          2 |          6 |           2 |      10 |      20      |      60      |      20      |
-| ableism     | negative      |          1 |          5 |           2 |       8 |      12.5    |      62.5    |      25      |
+| nationality | negative      |        342 |        139 |         374 |     855 |      40      |      16.2573 |      43.7427 |
+| ageism      | negative      |        211 |         76 |         141 |     428 |      49.2991 |      17.757  |      32.9439 |
+| ableism     | negative      |        120 |        138 |         138 |     396 |      30.303  |      34.8485 |      34.8485 |
 
 
 
@@ -26,9 +26,9 @@
 
 | bias_type   |   positive |   negative |   unrelated |   total |      pl |      nl |     nul |
 |:------------|-----------:|-----------:|------------:|--------:|--------:|--------:|--------:|
-| nationality |          9 |         25 |          17 |      51 | 17.6471 | 49.0196 | 33.3333 |
-| ageism      |          6 |         13 |           4 |      23 | 26.087  | 56.5217 | 17.3913 |
-| ableism     |          2 |         10 |           4 |      16 | 12.5    | 62.5    | 25      |
+| nationality |        720 |        252 |         738 |    1710 | 42.1053 | 14.7368 | 43.1579 |
+| ageism      |        458 |        127 |         272 |     857 | 53.4422 | 14.8191 | 31.7386 |
+| ableism     |        224 |        285 |         283 |     792 | 28.2828 | 35.9848 | 35.7323 |
 
 
 
@@ -36,9 +36,9 @@
 
 | bias_type   | target_term   |   positive |   negative |   unrelated |   total |   pos_to_pos |   pos_to_neg |   pos_to_neu |
 |:------------|:--------------|-----------:|-----------:|------------:|--------:|-------------:|-------------:|-------------:|
-| nationality | positive      |          6 |          1 |           1 |       8 |      75      |     12.5     |      12.5    |
-| ageism      | positive      |         13 |          1 |           8 |      22 |      59.0909 |      4.54545 |      36.3636 |
-| ableism     | positive      |          5 |          1 |           0 |       6 |      83.3333 |     16.6667  |       0      |
+| nationality | positive      |        130 |        121 |         145 |     396 |      32.8283 |      30.5556 |      36.6162 |
+| ageism      | positive      |        177 |        283 |         188 |     648 |      27.3148 |      43.6728 |      29.0123 |
+| ableism     | positive      |         97 |         62 |          39 |     198 |      48.9899 |      31.3131 |      19.697  |
 
 
 
@@ -46,19 +46,19 @@
 
 | bias_type   | target_term   |   positive |   negative |   unrelated |   total |   neg_to_pos |   neg_to_neg |   neg_to_neu |
 |:------------|:--------------|-----------:|-----------:|------------:|--------:|-------------:|-------------:|-------------:|
-| nationality | negative      |          2 |          5 |           4 |      11 |      18.1818 |      45.4545 |      36.3636 |
-| ageism      | negative      |         15 |          2 |           8 |      25 |      60      |       8      |      32      |
-| ableism     | negative      |          5 |          1 |           0 |       6 |      83.3333 |      16.6667 |       0      |
+| nationality | negative      |        116 |        141 |         138 |     395 |      29.3671 |      35.6962 |      34.9367 |
+| ageism      | negative      |        215 |        233 |         200 |     648 |      33.179  |      35.9568 |      30.8642 |
+| ableism     | negative      |        104 |         78 |          49 |     231 |      45.0216 |      33.7662 |      21.2121 |
 
 
 
 ### Type 2, Combined Attribute
 
-| bias_type   |   positive |   negative |   unrelated |   total |      pl |       nl |     nul |
-|:------------|-----------:|-----------:|------------:|--------:|--------:|---------:|--------:|
-| nationality |          8 |          6 |           5 |      19 | 42.1053 | 31.5789  | 26.3158 |
-| ageism      |         28 |          3 |          16 |      47 | 59.5745 |  6.38298 | 34.0426 |
-| ableism     |         10 |          2 |           0 |      12 | 83.3333 | 16.6667  |  0      |
+| bias_type   |   positive |   negative |   unrelated |   total |      pl |      nl |     nul |
+|:------------|-----------:|-----------:|------------:|--------:|--------:|--------:|--------:|
+| nationality |        246 |        262 |         283 |     791 | 31.0999 | 33.1226 | 35.7775 |
+| ageism      |        392 |        516 |         388 |    1296 | 30.2469 | 39.8148 | 29.9383 |
+| ableism     |        201 |        140 |          88 |     429 | 46.8531 | 32.634  | 20.5128 |
 
 
 
@@ -66,15 +66,15 @@
 
 | bias_type   | target_term   | gender        |   positive |   negative |   unrelated |   total |   pos_to_pos |   pos_to_neg |   pos_to_neu |
 |:------------|:--------------|:--------------|-----------:|-----------:|------------:|--------:|-------------:|-------------:|-------------:|
-| nationality | positive      | male          |          0 |          4 |           2 |       6 |       0      |      66.6667 |      33.3333 |
-| nationality | positive      | female        |          2 |          5 |           2 |       9 |      22.2222 |      55.5556 |      22.2222 |
-| nationality | positive      | not_spacified |          1 |          5 |           4 |      10 |      10      |      50      |      40      |
-| ageism      | positive      | male          |          3 |          5 |           1 |       9 |      33.3333 |      55.5556 |      11.1111 |
-| ageism      | positive      | female        |          1 |          0 |           0 |       1 |     100      |       0      |       0      |
-| ageism      | positive      | not_spacified |          0 |          2 |           1 |       3 |       0      |      66.6667 |      33.3333 |
-| ableism     | positive      | male          |          0 |          0 |           2 |       2 |       0      |       0      |     100      |
-| ableism     | positive      | female        |          1 |          4 |           0 |       5 |      20      |      80      |       0      |
-| ableism     | positive      | not_spacified |          0 |          1 |           0 |       1 |       0      |     100      |       0      |
+| nationality | positive      | male          |        120 |         43 |         122 |     285 |      42.1053 |     15.0877  |      42.807  |
+| nationality | positive      | female        |        124 |         30 |         131 |     285 |      43.5088 |     10.5263  |      45.9649 |
+| nationality | positive      | not_spacified |        134 |         40 |         111 |     285 |      47.0175 |     14.0351  |      38.9474 |
+| ageism      | positive      | male          |         85 |         14 |          44 |     143 |      59.4406 |      9.79021 |      30.7692 |
+| ageism      | positive      | female        |         87 |         16 |          40 |     143 |      60.8392 |     11.1888  |      27.972  |
+| ageism      | positive      | not_spacified |         75 |         21 |          47 |     143 |      52.4476 |     14.6853  |      32.8671 |
+| ableism     | positive      | male          |         35 |         47 |          50 |     132 |      26.5152 |     35.6061  |      37.8788 |
+| ableism     | positive      | female        |         35 |         47 |          50 |     132 |      26.5152 |     35.6061  |      37.8788 |
+| ableism     | positive      | not_spacified |         34 |         53 |          45 |     132 |      25.7576 |     40.1515  |      34.0909 |
 
 
 
@@ -82,9 +82,9 @@
 
 | bias_type     |   positive |   negative |   unrelated |   total |   pos_to_pos |   pos_to_neg |   pos_to_neu |
 |:--------------|-----------:|-----------:|------------:|--------:|-------------:|-------------:|-------------:|
-| male          |          3 |          9 |           5 |      17 |     17.6471  |      52.9412 |      29.4118 |
-| female        |          4 |          9 |           2 |      15 |     26.6667  |      60      |      13.3333 |
-| not_spacified |          1 |          8 |           5 |      14 |      7.14286 |      57.1429 |      35.7143 |
+| male          |        240 |        104 |         216 |     560 |      42.8571 |      18.5714 |      38.5714 |
+| female        |        246 |         93 |         221 |     560 |      43.9286 |      16.6071 |      39.4643 |
+| not_spacified |        243 |        114 |         203 |     560 |      43.3929 |      20.3571 |      36.25   |
 
 
 
@@ -92,15 +92,15 @@
 
 | bias_type   | target_term   | gender        |   positive |   negative |   unrelated |   total |   neg_to_pos |   neg_to_neg |   neg_to_neu |
 |:------------|:--------------|:--------------|-----------:|-----------:|------------:|--------:|-------------:|-------------:|-------------:|
-| nationality | negative      | male          |          3 |          6 |           1 |      10 |      30      |      60      |      10      |
-| nationality | negative      | female        |          1 |          2 |           4 |       7 |      14.2857 |      28.5714 |      57.1429 |
-| nationality | negative      | not_spacified |          2 |          3 |           4 |       9 |      22.2222 |      33.3333 |      44.4444 |
-| ageism      | negative      | male          |          1 |          0 |           1 |       2 |      50      |       0      |      50      |
-| ageism      | negative      | female        |          0 |          2 |           0 |       2 |       0      |     100      |       0      |
-| ageism      | negative      | not_spacified |          1 |          4 |           1 |       6 |      16.6667 |      66.6667 |      16.6667 |
-| ableism     | negative      | male          |          0 |          2 |           3 |       5 |       0      |      40      |      60      |
-| ableism     | negative      | female        |          0 |          3 |           0 |       3 |       0      |     100      |       0      |
-| ableism     | negative      | not_spacified |          0 |          4 |           1 |       5 |       0      |      80      |      20      |
+| nationality | negative      | male          |        113 |         48 |         124 |     285 |      39.6491 |      16.8421 |      43.5088 |
+| nationality | negative      | female        |        106 |         46 |         133 |     285 |      37.193  |      16.1404 |      46.6667 |
+| nationality | negative      | not_spacified |        123 |         45 |         117 |     285 |      43.1579 |      15.7895 |      41.0526 |
+| ageism      | negative      | male          |         71 |         25 |          47 |     143 |      49.6503 |      17.4825 |      32.8671 |
+| ageism      | negative      | female        |         71 |         27 |          45 |     143 |      49.6503 |      18.8811 |      31.4685 |
+| ageism      | negative      | not_spacified |         69 |         24 |          49 |     142 |      48.5915 |      16.9014 |      34.507  |
+| ableism     | negative      | male          |         38 |         45 |          49 |     132 |      28.7879 |      34.0909 |      37.1212 |
+| ableism     | negative      | female        |         41 |         44 |          47 |     132 |      31.0606 |      33.3333 |      35.6061 |
+| ableism     | negative      | not_spacified |         41 |         49 |          42 |     132 |      31.0606 |      37.1212 |      31.8182 |
 
 
 
@@ -108,9 +108,9 @@
 
 | bias_type     |   positive |   negative |   unrelated |   total |   pos_to_pos |   pos_to_neg |   pos_to_neu |
 |:--------------|-----------:|-----------:|------------:|--------:|-------------:|-------------:|-------------:|
-| male          |          4 |          8 |           5 |      17 |     23.5294  |      47.0588 |      29.4118 |
-| female        |          1 |          7 |           4 |      12 |      8.33333 |      58.3333 |      33.3333 |
-| not_spacified |          3 |         11 |           6 |      20 |     15       |      55      |      30      |
+| male          |        222 |        118 |         220 |     560 |      39.6429 |      21.0714 |      39.2857 |
+| female        |        218 |        117 |         225 |     560 |      38.9286 |      20.8929 |      40.1786 |
+| not_spacified |        233 |        118 |         208 |     559 |      41.6816 |      21.1091 |      37.2093 |
 
 
 
@@ -118,15 +118,15 @@
 
 | bias_type   | target_term   | gender        |   positive |   negative |   unrelated |   total |   pos_to_pos |   pos_to_neg |   pos_to_neu |
 |:------------|:--------------|:--------------|-----------:|-----------:|------------:|--------:|-------------:|-------------:|-------------:|
-| nationality | positive      | male          |          0 |          1 |           0 |       1 |       0      |        100   |       0      |
-| nationality | positive      | female        |          5 |          0 |           1 |       6 |      83.3333 |          0   |      16.6667 |
-| nationality | positive      | not_spacified |          1 |          0 |           0 |       1 |     100      |          0   |       0      |
-| ageism      | positive      | male          |          1 |          0 |           3 |       4 |      25      |          0   |      75      |
-| ageism      | positive      | female        |          5 |          1 |           2 |       8 |      62.5    |         12.5 |      25      |
-| ageism      | positive      | not_spacified |          7 |          0 |           3 |      10 |      70      |          0   |      30      |
-| ableism     | positive      | male          |          1 |          1 |           0 |       2 |      50      |         50   |       0      |
-| ableism     | positive      | female        |          3 |          0 |           0 |       3 |     100      |          0   |       0      |
-| ableism     | positive      | not_spacified |          1 |          0 |           0 |       1 |     100      |          0   |       0      |
+| nationality | positive      | male          |         42 |         41 |          49 |     132 |      31.8182 |      31.0606 |      37.1212 |
+| nationality | positive      | female        |         44 |         39 |          49 |     132 |      33.3333 |      29.5455 |      37.1212 |
+| nationality | positive      | not_spacified |         44 |         41 |          47 |     132 |      33.3333 |      31.0606 |      35.6061 |
+| ageism      | positive      | male          |         56 |         89 |          71 |     216 |      25.9259 |      41.2037 |      32.8704 |
+| ageism      | positive      | female        |         62 |         92 |          62 |     216 |      28.7037 |      42.5926 |      28.7037 |
+| ageism      | positive      | not_spacified |         59 |        102 |          55 |     216 |      27.3148 |      47.2222 |      25.463  |
+| ableism     | positive      | male          |         33 |         20 |          13 |      66 |      50      |      30.303  |      19.697  |
+| ableism     | positive      | female        |         30 |         23 |          13 |      66 |      45.4545 |      34.8485 |      19.697  |
+| ableism     | positive      | not_spacified |         34 |         19 |          13 |      66 |      51.5152 |      28.7879 |      19.697  |
 
 
 
@@ -134,9 +134,9 @@
 
 | bias_type     |   positive |   negative |   unrelated |   total |   pos_to_pos |   pos_to_neg |   pos_to_neu |
 |:--------------|-----------:|-----------:|------------:|--------:|-------------:|-------------:|-------------:|
-| male          |          2 |          2 |           3 |       7 |      28.5714 |     28.5714  |      42.8571 |
-| female        |         13 |          1 |           3 |      17 |      76.4706 |      5.88235 |      17.6471 |
-| not_spacified |          9 |          0 |           3 |      12 |      75      |      0       |      25      |
+| male          |        131 |        150 |         133 |     414 |      31.6425 |      36.2319 |      32.1256 |
+| female        |        136 |        154 |         124 |     414 |      32.8502 |      37.1981 |      29.9517 |
+| not_spacified |        137 |        162 |         115 |     414 |      33.0918 |      39.1304 |      27.7778 |
 
 
 
@@ -144,15 +144,15 @@
 
 | bias_type   | target_term   | gender        |   positive |   negative |   unrelated |   total |   neg_to_pos |   neg_to_neg |   neg_to_neu |
 |:------------|:--------------|:--------------|-----------:|-----------:|------------:|--------:|-------------:|-------------:|-------------:|
-| nationality | negative      | male          |          0 |          1 |           0 |       1 |       0      |    100       |       0      |
-| nationality | negative      | female        |          0 |          3 |           0 |       3 |       0      |    100       |       0      |
-| nationality | negative      | not_spacified |          2 |          1 |           4 |       7 |      28.5714 |     14.2857  |      57.1429 |
-| ageism      | negative      | male          |          4 |          1 |           6 |      11 |      36.3636 |      9.09091 |      54.5455 |
-| ageism      | negative      | female        |          7 |          0 |           1 |       8 |      87.5    |      0       |      12.5    |
-| ageism      | negative      | not_spacified |          4 |          1 |           1 |       6 |      66.6667 |     16.6667  |      16.6667 |
-| ableism     | negative      | male          |          1 |          1 |           1 |       3 |      33.3333 |     33.3333  |      33.3333 |
-| ableism     | negative      | female        |          4 |          1 |           1 |       6 |      66.6667 |     16.6667  |      16.6667 |
-| ableism     | negative      | not_spacified |          0 |          1 |           1 |       2 |       0      |     50       |      50      |
+| nationality | negative      | male          |         39 |         46 |          47 |     132 |      29.5455 |      34.8485 |      35.6061 |
+| nationality | negative      | female        |         41 |         45 |          45 |     131 |      31.2977 |      34.3511 |      34.3511 |
+| nationality | negative      | not_spacified |         36 |         50 |          46 |     132 |      27.2727 |      37.8788 |      34.8485 |
+| ageism      | negative      | male          |         74 |         73 |          69 |     216 |      34.2593 |      33.7963 |      31.9444 |
+| ageism      | negative      | female        |         74 |         68 |          74 |     216 |      34.2593 |      31.4815 |      34.2593 |
+| ageism      | negative      | not_spacified |         67 |         92 |          57 |     216 |      31.0185 |      42.5926 |      26.3889 |
+| ableism     | negative      | male          |         35 |         27 |          15 |      77 |      45.4545 |      35.0649 |      19.4805 |
+| ableism     | negative      | female        |         35 |         27 |          15 |      77 |      45.4545 |      35.0649 |      19.4805 |
+| ableism     | negative      | not_spacified |         34 |         24 |          19 |      77 |      44.1558 |      31.1688 |      24.6753 |
 
 
 
@@ -160,37 +160,37 @@
 
 | bias_type     |   positive |   negative |   unrelated |   total |   pos_to_pos |   pos_to_neg |   pos_to_neu |
 |:--------------|-----------:|-----------:|------------:|--------:|-------------:|-------------:|-------------:|
-| male          |          5 |          3 |           7 |      15 |      33.3333 |      20      |      46.6667 |
-| female        |         11 |          4 |           2 |      17 |      64.7059 |      23.5294 |      11.7647 |
-| not_spacified |          6 |          3 |           6 |      15 |      40      |      20      |      40      |
+| male          |        148 |        146 |         131 |     425 |      34.8235 |      34.3529 |      30.8235 |
+| female        |        150 |        140 |         134 |     424 |      35.3774 |      33.0189 |      31.6038 |
+| not_spacified |        137 |        166 |         122 |     425 |      32.2353 |      39.0588 |      28.7059 |
 
 
 
 ## Kendall Tau Calculation
 
-Total data: 95
+Total data: 3359
 
-Kendall's Tau Correlation for type 1: -0.023933518005540166
+Kendall's Tau Correlation for type 1: 0.041190897963029126
 
-P-Value: 0.8230411149587765
+P-Value: 0.026027395134562623
 
-Total data: 83
+Total data: 2516
 
-Kendall's Tau Correlation for type 2: 0.22122223835099433
+Kendall's Tau Correlation for type 2: -0.02386759713983131
 
-P-Value: 0.05061064053550165
+P-Value: 0.27098419534031415
 
 ## Kendall Tau Calculation considering if there are any positive likelihood towards feminine gendered pronoun
 
-Total data: 95
+Total data: 3359
 
-Kendall's Tau Correlation for type1 Considering more positive likelihood towards feminine gendered pronoun: -0.06049861495844875
+Kendall's Tau Correlation for type1 Considering more positive likelihood towards feminine gendered pronoun: 0.005100293090036135
 
-P-Value: 0.4881261240886997
+P-Value: 0.735710364685701
 
-Total data: 83
+Total data: 2516
 
-Kendall's Tau Correlation for type2 Considering more positive likelihood towards feminine gendered pronoun: 0.2303672521410945
+Kendall's Tau Correlation for type2 Considering more positive likelihood towards feminine gendered pronoun: 0.0045292007147894175
 
-P-Value: 0.012930030325043864
+P-Value: 0.7980924673810887
 

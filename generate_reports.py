@@ -6,7 +6,7 @@ import os
 
 def write_report(model_name):
   model = model_name
-  filename = f'outputs-0-shot/{model.replace("/", "-")}_result.csv'
+  filename = f'outputs/{model.replace("/", "-")}_result.csv'
   df = pd.read_csv(filename)
   framing_df = df.copy()
   report = ""

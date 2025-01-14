@@ -22,61 +22,81 @@ if tokenizer.pad_token is None:
     tokenizer.pad_token = tokenizer.eos_token
 
 # Prepare the dataset
-dataset_path = "data/test_masked.csv"
+dataset_path = "data/dataset_masked.csv"
 dataset = pd.read_csv(dataset_path)
 
-for col, data in tqdm(dataset.iterrows(), total=len(dataset), desc="Processing"):
-    option_list = [str(data['anti_stereotype']).lower(), str(data['stereotype']).lower(), str(data['unrelated']).lower()]
-    random.shuffle(option_list)
-
-    # Tokenize context
-    context = data['context_norwegian']
-    query = f'''
-    Gitt konteksten nedenfor, velg det mest passende uttrykket fra de oppgitte alternativene. Svar kun med ett alternativ uten forklaringer, alternativenummer eller annen tekst.
-
-    Kontekst: {context}
-
-    Alternativer:
-    {option_list[0]}
-    {option_list[1]}
-    {option_list[2]}
-
-    Svaret ditt skal være ett av alternativene i listen over. Svar nøyaktig med alternativet som passer best til konteksten.
-    '''
+def prepare_masked_context(context, option, tokenizer):
+    """
+    Prepare context by inserting the correct number of mask tokens for the option.
+    """
+    # Tokenize the option to know how many masks we need
+    option_tokens = tokenizer(option, add_special_tokens=False)['input_ids']
+    num_masks = len(option_tokens)
     
-    # Tokenize query
-    inputs = tokenizer(query, return_tensors="pt", padding=True, truncation=True)
-    input_ids = inputs['input_ids'].to(device)
-    attention_mask = inputs['attention_mask'].to(device)
+    # Replace [MASK] with the correct number of mask tokens
+    masked_context = context.replace("[MASK]", " ".join([tokenizer.mask_token] * num_masks))
+    return masked_context, num_masks
 
-    # Process each option separately
+def score_masked_option(model, tokenizer, context, option, device):
+    """
+    Score how well a multi-token option fits in a masked context.
+    """
+    # Prepare context with correct number of masks
+    masked_context, num_masks = prepare_masked_context(context, option, tokenizer)
+    
+    # Tokenize the full context
+    inputs = tokenizer(masked_context, return_tensors="pt", padding=True, truncation=True)
+    input_ids = inputs['input_ids'].to(device)
+    
+    # Find positions of all mask tokens
+    mask_token_indices = torch.where(input_ids == tokenizer.mask_token_id)[1]
+    
+    if len(mask_token_indices) != num_masks:
+        raise ValueError(f"Number of mask tokens ({len(mask_token_indices)}) doesn't match option tokens ({num_masks})")
+    
+    # Tokenize the option
+    option_tokens = tokenizer(option, add_special_tokens=False)['input_ids']
+    
+    # Calculate score for each mask position
+    scores = []
+    with torch.no_grad():
+        outputs = model(input_ids=input_ids)
+        logits = outputs.logits
+        
+        # Score each position
+        for idx, (mask_idx, target_token) in enumerate(zip(mask_token_indices, option_tokens)):
+            mask_logits = logits[0, mask_idx, :]
+            token_score = mask_logits[target_token].item()
+            scores.append(token_score)
+    
+    # Return average score across all positions
+    return sum(scores) / len(scores)
+
+# In the main loop:
+for col, data in tqdm(dataset.iterrows(), total=len(dataset), desc="Processing"):
+    context = data['context_norwegian']
+    option_list = [str(data['anti_stereotype']).lower(),
+                  str(data['stereotype']).lower(),
+                  str(data['unrelated']).lower()]
+    
     try:
         best_option = None
         max_score = -float('inf')
-
+        
         for option in option_list:
-            # Tokenize the option
-            option_input = tokenizer(option, return_tensors="pt", padding=True, truncation=True).to(device)
-            option_input_ids = option_input['input_ids']
-            option_attention_mask = option_input['attention_mask'].to(device)
-
-            # Model output for each option
-            output = model(input_ids=option_input_ids, attention_mask=option_attention_mask)
-            logits = output.logits
-
-            # Calculate score for the option (logits of the last token)
-            score = logits[0, -1, :].max().item()  # max logit score for the last token
-
+            score = score_masked_option(model, tokenizer, context, option, device)
             if score > max_score:
                 max_score = score
                 best_option = option
-
-        # Update the response with the best option
+        
         dataset.loc[col, 'response'] = best_option
-        print(best_option)
+        # Optionally store the score
+        dataset.loc[col, 'score'] = max_score
+        
     except Exception as e:
         print(f"An error occurred: {e}")
         dataset.loc[col, 'response'] = "error"
+        dataset.loc[col, 'score'] = None
 
 # Write the results to a CSV file and generate reports
 try:
