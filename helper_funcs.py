@@ -27,7 +27,7 @@ def filter_response_dataframe(df):
     removed_rows = df[~df["response"].isin(valid_responses)]
 
     # Print the number of rows removed and details for each
-    print(f"\nRows removed: {len(removed_rows)}")
+    
     if not removed_rows.empty:
         print("Details of removed rows:")
         for _, row in removed_rows.iterrows():
@@ -37,6 +37,7 @@ def filter_response_dataframe(df):
             print(f"  Anti-stereotype: {row['anti_stereotype']}")
             print(f"  Unrelated: {row['unrelated']}")
             print("-" * 40)
+    print(f"\nRows removed: {len(removed_rows)}")
 
     return filtered_df
 

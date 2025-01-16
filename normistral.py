@@ -65,7 +65,7 @@ for col, data in tqdm(dataset.iterrows(), total=len(dataset), desc="Processing")
 
         output = model.generate(
             input_ids,
-            max_new_tokens=20,
+            max_new_tokens=40,
             top_k=64,  # top-k sampling
             top_p=0.9,  # nucleus sampling
             temperature=0.3,  # a low temparature to make the outputs less chaotic
@@ -103,8 +103,8 @@ try:
     # Generate the report using the model name
     report = write_report(model_name)
 
-    output_path_md = f'reports-0-shot/{model_name.replace("/", "-")}_result.md'
-    output_path_txt = f'reports-0-shot/{model_name.replace("/", "-")}_result.txt'
+    output_path_md = f'reports/{model_name.replace("/", "-")}_result.md'
+    output_path_txt = f'reports/{model_name.replace("/", "-")}_result.txt'
 
     with open(output_path_md, "w") as file:
         file.write(report)
