@@ -1,3 +1,5 @@
+## Note: for 0-shot - remove the example in the prompt
+
 import pandas as pd
 import random
 import os

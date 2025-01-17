@@ -1,0 +1,117 @@
+################################ Different Types of Likelihood Calculation #####################################
+Type 1, Positive Attribute
+
+| bias_type | target_term | positive | negative | unrelated | total | pos_to_pos | pos_to_neg | pos_to_neu |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| nationality | positive | 337 | 211 | 151 | 699 | 48.2117 | 30.186 | 21.6023 |
+| ageism | positive | 243 | 79 | 52 | 374 | 64.9733 | 21.123 | 13.9037 |
+| ableism | positive | 149 | 110 | 72 | 331 | 45.0151 | 33.2326 | 21.7523 |
+| Type 1, Negative Attribute |  |  |  |  |  |  |  |  |
+
+ bias_type target_term  positive  negative  unrelated  total  neg_to_pos  neg_to_neg  neg_to_neu
+
+0  nationality    negative       313       240        149    702   44.586895   34.188034   21.225071
+1       ageism    negative       216       102         54    372   58.064516   27.419355   14.516129
+2      ableism    negative       131       101         91    323   40.557276   31.269350   28.173375
+Type 1, Combined Attribute
+bias_type  positive  negative  unrelated  total         pl         nl        nul
+0  nationality       650       451        300   1401  46.395432  32.191292  21.413276
+1       ageism       459       181        106    746  61.528150  24.262735  14.209115
+2      ableism       280       211        163    654  42.813456  32.262997  24.923547
+Type 2, Positive Attribute
+bias_type target_term  positive  negative  unrelated  total  pos_to_pos  pos_to_neg  pos_to_neu
+0  nationality    positive       167        54        120    341   48.973607   15.835777   35.190616
+1       ageism    positive       208       153        202    563   36.944938   27.175844   35.879218
+2      ableism    positive        42        35         33    110   38.181818   31.818182   30.000000
+Type 2, Negative Attribute
+bias_type target_term  positive  negative  unrelated  total  neg_to_pos  neg_to_neg  neg_to_neu
+0  nationality    negative       134        76        110    320   41.875000   23.750000   34.375000
+1       ageism    negative       204       150        188    542   37.638376   27.675277   34.686347
+2      ableism    negative        32        53         34    119   26.890756   44.537815   28.571429
+Type 2, Combined Attribute
+bias_type  positive  negative  unrelated  total         pl         nl        nul
+0  nationality       301       130        230    661  45.537065  19.667171  34.795764
+1       ageism       412       303        390   1105  37.285068  27.420814  35.294118
+2      ableism        74        88         67    229  32.314410  38.427948  29.257642
+
+Type 1, Positive Attribute
+
+bias_type target_term         gender  positive  negative  unrelated  total  pos_to_pos  pos_to_neg  pos_to_neu
+
+0  nationality    positive           male       110        69         51    230   47.826087   30.000000   22.173913
+1  nationality    positive         female       104        75         56    235   44.255319   31.914894   23.829787
+2  nationality    positive  not_spacified       123        67         44    234   52.564103   28.632479   18.803419
+3       ageism    positive           male        88        26         16    130   67.692308   20.000000   12.307692
+4       ageism    positive         female        83        23         18    124   66.935484   18.548387   14.516129
+5       ageism    positive  not_spacified        72        30         18    120   60.000000   25.000000   15.000000
+6      ableism    positive           male        42        44         24    110   38.181818   40.000000   21.818182
+7      ableism    positive         female        55        33         24    112   49.107143   29.464286   21.428571
+8      ableism    positive  not_spacified        52        33         24    109   47.706422   30.275229   22.018349
+Type 1, Positive, Gender
+bias_type  positive  negative  unrelated  total  pos_to_pos  pos_to_neg  pos_to_neu
+0           male       240       139         91    470   51.063830   29.574468   19.361702
+1         female       242       131         98    471   51.380042   27.813163   20.806794
+2  not_spacified       247       130         86    463   53.347732   28.077754   18.574514
+Type 1, Negative Attribute
+bias_type target_term         gender  positive  negative  unrelated  total  neg_to_pos  neg_to_neg  neg_to_neu
+0  nationality    negative           male        85        94         58    237   35.864979   39.662447   24.472574
+1  nationality    negative         female       117        75         46    238   49.159664   31.512605   19.327731
+2  nationality    negative  not_spacified       111        71         45    227   48.898678   31.277533   19.823789
+3       ageism    negative           male        74        36         19    129   57.364341   27.906977   14.728682
+4       ageism    negative         female        71        35         19    125   56.800000   28.000000   15.200000
+5       ageism    negative  not_spacified        71        31         16    118   60.169492   26.271186   13.559322
+6      ableism    negative           male        39        35         28    102   38.235294   34.313725   27.450980
+7      ableism    negative         female        44        36         29    109   40.366972   33.027523   26.605505
+8      ableism    negative  not_spacified        48        30         34    112   42.857143   26.785714   30.357143
+Type 1, Negative, Gender
+bias_type  positive  negative  unrelated  total  pos_to_pos  pos_to_neg  pos_to_neu
+0           male       198       165        105    468   42.307692   35.256410   22.435897
+1         female       232       146         94    472   49.152542   30.932203   19.915254
+2  not_spacified       230       132         95    457   50.328228   28.884026   20.787746
+Type 2, Positive Attribute
+bias_type target_term         gender  positive  negative  unrelated  total  pos_to_pos  pos_to_neg  pos_to_neu
+0  nationality    positive           male        62        20         36    118   52.542373   16.949153   30.508475
+1  nationality    positive         female        59        19         41    119   49.579832   15.966387   34.453782
+2  nationality    positive  not_spacified        46        15         43    104   44.230769   14.423077   41.346154
+3       ageism    positive           male        65        62         63    190   34.210526   32.631579   33.157895
+4       ageism    positive         female        72        49         71    192   37.500000   25.520833   36.979167
+5       ageism    positive  not_spacified        71        42         68    181   39.226519   23.204420   37.569061
+6      ableism    positive           male        14        10         10     34   41.176471   29.411765   29.411765
+7      ableism    positive         female        13         8         12     33   39.393939   24.242424   36.363636
+8      ableism    positive  not_spacified        15        17         11     43   34.883721   39.534884   25.581395
+Type 2, Positive, Gender
+bias_type  positive  negative  unrelated  total  pos_to_pos  pos_to_neg  pos_to_neu
+0           male       141        92        109    342   41.228070   26.900585   31.871345
+1         female       144        76        124    344   41.860465   22.093023   36.046512
+2  not_spacified       132        74        122    328   40.243902   22.560976   37.195122
+Type 2, Negative Attribute
+bias_type target_term         gender  positive  negative  unrelated  total  neg_to_pos  neg_to_neg  neg_to_neu
+0  nationality    negative           male        51        26         32    109   46.788991   23.853211   29.357798
+1  nationality    negative         female        43        27         44    114   37.719298   23.684211   38.596491
+2  nationality    negative  not_spacified        40        23         34     97   41.237113   23.711340   35.051546
+3       ageism    negative           male        61        55         64    180   33.888889   30.555556   35.555556
+4       ageism    negative         female        69        51         65    185   37.297297   27.567568   35.135135
+5       ageism    negative  not_spacified        74        44         59    177   41.807910   24.858757   33.333333
+6      ableism    negative           male        12        16         11     39   30.769231   41.025641   28.205128
+7      ableism    negative         female         8        19         14     41   19.512195   46.341463   34.146341
+8      ableism    negative  not_spacified        12        18          9     39   30.769231   46.153846   23.076923
+Type 2, Negative, Gender
+bias_type  positive  negative  unrelated  total  pos_to_pos  pos_to_neg  pos_to_neu
+0           male       124        97        107    328   37.804878   29.573171   32.621951
+1         female       120        97        123    340   35.294118   28.529412   36.176471
+2  not_spacified       126        85        102    313   40.255591   27.156550   32.587859
+################################ KENDAL TAU CALCULATION #####################################
+Total data:  2801
+Kendall's Tau Correlation for type 1: 0.04894360546757349
+P-Value: 0.014538116511304822
+Total data:  1995
+Kendall's Tau Correlation for type 2: 0.05286197951017896
+P-Value: 0.029292004083995356
+##################################################################################
+################################ KENDAL TAU CALCULATION CONSIDERING IF THERE ARE ANY POSITIVE LIKELIHOOD TOWARDS FEMININE GENDERED PRONOUN #####################################
+Total data:  2801
+Kendall's Tau Correlation for type1 Considering more positive likelihood towards feminine gendered pronoun: 0.02685377449095359
+P-Value: 0.10056437507882726
+Total data:  1995
+Kendall's Tau Correlation for type2 Considering more positive likelihood towards feminine gendered pronoun: 0.006930860987054101
+P-Value: 0.726350082207954
