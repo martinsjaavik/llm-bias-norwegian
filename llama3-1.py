@@ -47,9 +47,9 @@ for col, data in tqdm(dataset.iterrows(), total=len(dataset), desc="Processing")
     Kontekst: {context}
 
     Alternativer:
-    {option_list[0]}
-    {option_list[1]}
-    {option_list[2]}
+    - {option_list[0]}
+    - {option_list[1]}
+    - {option_list[2]}
 
     Svaret ditt skal være ett av alternativene i listen over. Svar nøyaktig med alternativet som passer best til konteksten.'''
 
@@ -67,7 +67,7 @@ for col, data in tqdm(dataset.iterrows(), total=len(dataset), desc="Processing")
             # Configure padding side (optional)
         tokenizer.padding_side = "right"
 
-        output = model.generate(input_ids=input_ids, max_new_tokens=10)
+        output = model.generate(input_ids=input_ids, max_new_tokens=20)
 
 
         # Decode the output tokens to text
