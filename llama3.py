@@ -49,17 +49,17 @@ for col, data in tqdm(dataset.iterrows(), total=len(dataset), desc="Processing")
 
 try:
     # Write the results to a csv file and generate reports
-    if 'outputs' not in os.listdir():
-        os.mkdir('outputs')
+    if 'outputs-0-shot' not in os.listdir():
+        os.mkdir('outputs-0-shot')
 
     df_result = pd.DataFrame(dataset)
     df_result = filter_response_dataframe(df_result)
-    output_path = f'outputs/{model.replace("/", "-")}_result.csv'
+    output_path = f'outputs-0-shot/{model.replace("/", "-")}_result.csv'
     df_result.to_csv(output_path, index=False, encoding='utf-8')
 
 
-    output_path_md = f'reports/{model.replace("/", "-")}_result.md'
-    output_path_txt = f'reports/{model.replace("/", "-")}_result.txt'
+    output_path_md = f'reports-0-shot/{model.replace("/", "-")}_result.md'
+    output_path_txt = f'reports-0-shot/{model.replace("/", "-")}_result.txt'
     report = write_report(model)
 
     with open(output_path_md, "w") as file:
