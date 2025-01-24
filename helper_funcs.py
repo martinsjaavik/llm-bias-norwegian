@@ -1,36 +1,53 @@
 import pandas as pd
 import torch
 
+import pandas as pd
+
 def filter_response_dataframe(df):
     """
-    Filters a DataFrame to keep rows where the 'response' column matches one of the values
-    in the 'stereotype', 'anti_stereotype', or 'unrelated' columns.
+    Filters and updates a DataFrame by ensuring that the 'response' column contains valid options.
+    If the 'response' contains any value from the 'stereotype', 'anti_stereotype', or 'unrelated' columns,
+    it is updated to the exact text in the matching column. Rows without valid matches are removed.
 
     Args:
         df (pd.DataFrame): The input DataFrame with the required columns.
 
     Returns:
-        pd.DataFrame: The filtered DataFrame.
+        pd.DataFrame: The updated and filtered DataFrame.
     """
     # Ensure the necessary columns exist
     required_columns = {"response", "stereotype", "anti_stereotype", "unrelated", "context_norwegian"}
     if not required_columns.issubset(df.columns):
         raise ValueError(f"The DataFrame must contain the columns: {required_columns}")
-    
-    # Create a list of valid values from the 'stereotype', 'anti_stereotype', and 'unrelated' columns
-    valid_responses = df["stereotype"].tolist() + df["anti_stereotype"].tolist() + df["unrelated"].tolist()
 
-    # Filter rows where 'response' matches any of the valid values
-    filtered_df = df[df["response"].isin(valid_responses)]
+    updated_responses = []
+    removed_rows = []
 
-    # Identify rows that were removed
-    removed_rows = df[~df["response"].isin(valid_responses)]
+    # Iterate over rows to validate and update responses
+    for _, row in df.iterrows():
+        response = row["response"]
+        # Check if response matches or contains any of the valid options
+        if row["stereotype"] in response:
+            updated_responses.append(row["stereotype"])
+        elif row["anti_stereotype"] in response:
+            updated_responses.append(row["anti_stereotype"])
+        elif row["unrelated"] in response:
+            updated_responses.append(row["unrelated"])
+        else:
+            # Collect rows that don't match any valid option
+            removed_rows.append(row)
 
-    # Print the number of rows removed and details for each
-    
-    if not removed_rows.empty:
+    # Filter out invalid rows
+    filtered_df = df[df.index.isin(row.name for row in removed_rows) == False]
+
+    # Update the response column for the valid rows
+    filtered_df.loc[:, "response"] = updated_responses
+
+    # Print details of removed rows
+    print(f"\nRows removed: {len(removed_rows)}")
+    if removed_rows:
         print("Details of removed rows:")
-        for _, row in removed_rows.iterrows():
+        for row in removed_rows:
             print(f"Context (Norwegian): {row['context_norwegian']}")
             print(f"Response: {row['response']}")
             print(f"  Stereotype: {row['stereotype']}")
