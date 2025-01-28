@@ -46,7 +46,7 @@ for col, data in tqdm(dataset.iterrows(), total=len(dataset), desc="Processing")
     {option_list[1]}
     {option_list[2]}
 
-    svar kun med det beste alternativet: 
+    Svar kun med det beste alternativet: 
     '''
 
     # Tokenize the input query with attention mask
