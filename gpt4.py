@@ -19,7 +19,7 @@ args = parser.parse_args()
 
 openai.api_key = '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'
 
-dataset_path = "data/dataset.csv"
+dataset_path = "data/dataset_small.csv"
 dataset = pd.read_csv(dataset_path)
 
 model = os.environ['MODEL']
@@ -72,17 +72,17 @@ for col, data in tqdm(dataset.iterrows(), total=len(dataset), desc="Processing")
 
 try:
     # Write the results to a csv file and generate reports
-    if 'outputs' not in os.listdir():
-        os.mkdir('outputs')
+    if 'x5_iterations' not in os.listdir():
+        os.mkdir('x5_iterations')
 
     df_result = pd.DataFrame(dataset)
     df_result = filter_response_dataframe(df_result)
-    output_path = f'outputs/{model.replace("/", "-")}_result.csv'
+    output_path = f'x5_iterations/{model.replace("/", "-")}_result.csv'
     df_result.to_csv(output_path, index=False, encoding='utf-8')
 
 
-    output_path_md = f'reports/{model.replace("/", "-")}_result.md'
-    output_path_txt = f'reports/{model.replace("/", "-")}_result.txt'
+    output_path_md = f'x5_iterations/{model.replace("/", "-")}_result.md'
+    output_path_txt = f'x5_iterations/{model.replace("/", "-")}_result.txt'
     report = write_report(model)
 
     with open(output_path_md, "w") as file:
