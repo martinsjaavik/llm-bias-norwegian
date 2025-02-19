@@ -1,76 +1,97 @@
 import pandas as pd
-import torch
-
-import pandas as pd
+import re
 
 def filter_response_dataframe(df):
     """
-    Filters and updates a DataFrame by ensuring that the 'response' column contains valid options.
-    If the 'response' contains any value from the 'stereotype', 'anti_stereotype', or 'unrelated' columns,
-    it is updated to the exact text in the matching column. Rows without valid matches are removed.
-
+    Filters and updates a DataFrame by extracting valid options from model responses.
+    Handles various response formats including numbers, exact words, and None values.
+    
     Args:
-        df (pd.DataFrame): The input DataFrame with the required columns.
-
+        df (pd.DataFrame): The input DataFrame with the required columns
     Returns:
-        pd.DataFrame: The updated and filtered DataFrame.
+        pd.DataFrame: The updated DataFrame with cleaned responses
     """
     # Ensure the necessary columns exist
     required_columns = {"response", "stereotype", "anti_stereotype", "unrelated", "context_norwegian"}
     if not required_columns.issubset(df.columns):
         raise ValueError(f"The DataFrame must contain the columns: {required_columns}")
-
-    updated_responses = []
+    
+    def normalize_text(text):
+        """Normalize text for comparison"""
+        if pd.isna(text):
+            return ""
+        return str(text).lower().strip()
+    
+    def find_match(response, option):
+        """
+        Find if option matches response, handling various cases:
+        - Exact number matches
+        - Word boundary matches
+        - Quoted text matches
+        """
+        if pd.isna(response) or pd.isna(option):
+            return False
+            
+        response = normalize_text(response)
+        option = normalize_text(option)
+        
+        # If option is a number, check for exact number match
+        if option.isdigit():
+            return option in re.findall(r'\b\d+\b', response)
+        
+        # Clean quotes and check for exact word/phrase match
+        response = response.replace('«', '"').replace('»', '"').replace('"', '"').replace('"', '"')
+        option_pattern = r'(?:^|\W)(?:"|«)?(' + re.escape(option) + r')(?:»|")?(?:\W|$)'
+        return bool(re.search(option_pattern, response))
+    
+    filtered_rows = []
     removed_rows = []
-
-    # Iterate over rows to validate and update responses
-    for _, row in df.iterrows():
+    
+    for idx, row in df.iterrows():
         response = row["response"]
-        # Check if response matches or contains any of the valid options
-        if row["stereotype"] in response:
-            updated_responses.append(row["stereotype"])
-        elif row["anti_stereotype"] in response:
-            updated_responses.append(row["anti_stereotype"])
-        elif row["unrelated"] in response:
-            updated_responses.append(row["unrelated"])
-        else:
-            # Collect rows that don't match any valid option
+        
+        # Get all possible options for this row
+        options = [
+            (row["stereotype"], "stereotype"),
+            (row["anti_stereotype"], "anti_stereotype"),
+            (row["unrelated"], "unrelated")
+        ]
+        
+        # Try to find match of any option within the response
+        found_match = False
+        for option_original, option_type in options:
+            if find_match(response, option_original):
+                filtered_rows.append({
+                    'index': idx,
+                    'response': option_original,
+                    'matched_type': option_type
+                })
+                found_match = True
+                break
+        
+        if not found_match:
             removed_rows.append(row)
-
-    # Filter out invalid rows
-    filtered_df = df[df.index.isin(row.name for row in removed_rows) == False]
-
-    # Update the response column for the valid rows
-    filtered_df.loc[:, "response"] = updated_responses
-
-    # Print details of removed rows
+    
+    # Create new filtered DataFrame
+    if filtered_rows:
+        indices = [row['index'] for row in filtered_rows]
+        filtered_df = df.loc[indices].copy()
+        filtered_df.loc[:, "response"] = [row['response'] for row in filtered_rows]
+    else:
+        filtered_df = pd.DataFrame(columns=df.columns)
+    
+    # Print debugging information
     print(f"\nRows removed: {len(removed_rows)}")
     if removed_rows:
         print("Details of removed rows:")
         for row in removed_rows:
             print(f"Context (Norwegian): {row['context_norwegian']}")
-            print(f"Response: {row['response']}")
-            print(f"  Stereotype: {row['stereotype']}")
-            print(f"  Anti-stereotype: {row['anti_stereotype']}")
-            print(f"  Unrelated: {row['unrelated']}")
+            print(f"Model Response: {row['response']}")
+            print(f"Valid options were:")
+            print(f"- Stereotype: {row['stereotype']}")
+            print(f"- Anti-stereotype: {row['anti_stereotype']}")
+            print(f"- Unrelated: {row['unrelated']}")
             print("-" * 40)
     print(f"\nRows removed: {len(removed_rows)}")
-
+    
     return filtered_df
-
-def compute_average_log_probability(context, option, model, tokenizer, device):
-    inputs = tokenizer(context, return_tensors="pt", padding=True, truncation=True).to(device)
-    mask_index = torch.where(inputs.input_ids == tokenizer.mask_token_id)[1]
-    total_log_prob = 0
-
-    for subword in tokenizer.tokenize(option):
-        inputs.input_ids[0, mask_index] = tokenizer.convert_tokens_to_ids(subword)
-        outputs = model(**inputs)
-        logits = outputs.logits
-        log_probs = torch.log_softmax(logits[0, mask_index, :], dim=-1)
-        token_log_prob = log_probs[0, tokenizer.convert_tokens_to_ids(subword)].item()
-        total_log_prob += token_log_prob
-        mask_index += 1  # Move to the next token
-
-    return total_log_prob / len(tokenizer.tokenize(option))  # Average log probability
-
