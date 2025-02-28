@@ -4,10 +4,16 @@ import re
 def filter_response_dataframe(df):
     """
     Filters and updates a DataFrame by extracting valid options from model responses.
-    Handles various response formats including numbers, exact words, and None values.
+    Uses word boundary checking to ensure exact matches only.
+    For example: "umotivert" will not match with "motivert".
     
     Args:
-        df (pd.DataFrame): The input DataFrame with the required columns
+        df (pd.DataFrame): The input DataFrame with columns:
+            - response: the model's full text response
+            - stereotype: first option
+            - anti_stereotype: second option
+            - unrelated: third option
+            - context_norwegian: the context (for logging)
     Returns:
         pd.DataFrame: The updated DataFrame with cleaned responses
     """
@@ -16,39 +22,33 @@ def filter_response_dataframe(df):
     if not required_columns.issubset(df.columns):
         raise ValueError(f"The DataFrame must contain the columns: {required_columns}")
     
-    def normalize_text(text):
-        """Normalize text for comparison"""
-        if pd.isna(text):
-            return ""
-        return str(text).lower().strip()
-    
-    def find_match(response, option):
-        """
-        Find if option matches response, handling various cases:
-        - Exact number matches
-        - Word boundary matches
-        - Quoted text matches
-        """
-        if pd.isna(response) or pd.isna(option):
-            return False
-            
-        response = normalize_text(response)
-        option = normalize_text(option)
-        
-        # If option is a number, check for exact number match
-        if option.isdigit():
-            return option in re.findall(r'\b\d+\b', response)
-        
-        # Clean quotes and check for exact word/phrase match
-        response = response.replace('«', '"').replace('»', '"').replace('"', '"').replace('"', '"')
-        option_pattern = r'(?:^|\W)(?:"|«)?(' + re.escape(option) + r')(?:»|")?(?:\W|$)'
-        return bool(re.search(option_pattern, response))
-    
-    filtered_rows = []
+    valid_indices = []
+    updated_responses = []
     removed_rows = []
     
+    def find_exact_match(text, option):
+        """
+        Find exact match of option in text, handling quotes and word boundaries.
+        Returns True if exact match is found.
+        """
+        if pd.isna(text) or pd.isna(option):
+            return False
+            
+        text = str(text).lower()
+        option = str(option).lower()
+        
+        # Remove common quote characters and clean the text
+        text = text.replace('«', '"').replace('»', '"').replace('"', '"').replace('"', '"')
+        
+        # Create pattern that handles quotes and word boundaries
+        pattern = r'(?:^|\W)(?:"|«)?(' + re.escape(option) + r')(?:»|")?\W'
+        
+        # Find all matches
+        matches = re.findall(pattern, text)
+        return len(matches) > 0
+    
     for idx, row in df.iterrows():
-        response = row["response"]
+        response = str(row["response"]) if pd.notna(row["response"]) else ""
         
         # Get all possible options for this row
         options = [
@@ -57,15 +57,12 @@ def filter_response_dataframe(df):
             (row["unrelated"], "unrelated")
         ]
         
-        # Try to find match of any option within the response
+        # Try to find exact match of any option within the response
         found_match = False
         for option_original, option_type in options:
-            if find_match(response, option_original):
-                filtered_rows.append({
-                    'index': idx,
-                    'response': option_original,
-                    'matched_type': option_type
-                })
+            if find_exact_match(response, option_original):
+                valid_indices.append(idx)
+                updated_responses.append(option_original)
                 found_match = True
                 break
         
@@ -73,12 +70,8 @@ def filter_response_dataframe(df):
             removed_rows.append(row)
     
     # Create new filtered DataFrame
-    if filtered_rows:
-        indices = [row['index'] for row in filtered_rows]
-        filtered_df = df.loc[indices].copy()
-        filtered_df.loc[:, "response"] = [row['response'] for row in filtered_rows]
-    else:
-        filtered_df = pd.DataFrame(columns=df.columns)
+    filtered_df = df.loc[valid_indices].copy()
+    filtered_df.loc[:, "response"] = updated_responses
     
     # Print debugging information
     print(f"\nRows removed: {len(removed_rows)}")
@@ -92,6 +85,5 @@ def filter_response_dataframe(df):
             print(f"- Anti-stereotype: {row['anti_stereotype']}")
             print(f"- Unrelated: {row['unrelated']}")
             print("-" * 40)
-    print(f"\nRows removed: {len(removed_rows)}")
     
     return filtered_df
