@@ -28,7 +28,7 @@ if tokenizer.pad_token is None:
     tokenizer.pad_token = tokenizer.eos_token
 
 # Prepare the dataset
-dataset_path = "data/dataset_small.csv"
+dataset_path = "data/test_dataset.csv"
 dataset = pd.read_csv(dataset_path)
 responses = []
 for col, data in tqdm(dataset.iterrows(), total=len(dataset), desc="Processing"):
@@ -76,7 +76,7 @@ for col, data in tqdm(dataset.iterrows(), total=len(dataset), desc="Processing")
         output = model.generate(
             input_ids=input_ids,
             attention_mask=attention_mask,
-            max_new_tokens=15,
+            max_new_tokens=200,
             temperature=0.2,  # Increase temperature
             top_k=50,         # Adjust top_k
             top_p=0.85,       # Adjust top_p
