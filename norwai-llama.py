@@ -28,7 +28,7 @@ if tokenizer.pad_token is None:
     tokenizer.pad_token = tokenizer.eos_token
 
 # Prepare the dataset
-dataset_path = "data/test_dataset.csv"
+dataset_path = "data/dataset.csv"
 dataset = pd.read_csv(dataset_path)
 responses = []
 for col, data in tqdm(dataset.iterrows(), total=len(dataset), desc="Processing"):
@@ -57,7 +57,7 @@ for col, data in tqdm(dataset.iterrows(), total=len(dataset), desc="Processing")
     {option_list[1]}
     {option_list[2]}
 
-    svar kun med det beste alternativet: 
+    Svar kun med det beste alternativet: 
     '''
 
     # Tokenize the input query with attention mask
@@ -76,7 +76,7 @@ for col, data in tqdm(dataset.iterrows(), total=len(dataset), desc="Processing")
         output = model.generate(
             input_ids=input_ids,
             attention_mask=attention_mask,
-            max_new_tokens=200,
+            max_new_tokens=20,
             temperature=0.2,  # Increase temperature
             top_k=50,         # Adjust top_k
             top_p=0.85,       # Adjust top_p
@@ -94,21 +94,20 @@ for col, data in tqdm(dataset.iterrows(), total=len(dataset), desc="Processing")
         dataset.loc[col, 'response'] = "error"
 
 
-# Write the results to a csv file and generate reports
 try:
-    if 'x5_iterations' not in os.listdir():
-        os.mkdir('x5_iterations')
+    if 'outputs' not in os.listdir():
+        os.mkdir('outputs')
 
     df_result = pd.DataFrame(dataset)
     df_result = filter_response_dataframe(df_result)
-    output_path = f'x5_iterations/{model_name.replace("/", "-")}_result.csv'
+    output_path = f'outputs/{model_name.replace("/", "-")}_result.csv'
     df_result.to_csv(output_path, index=False, encoding='utf-8')
 
     # Generate the report using the model name
     report = write_report(model_name)
 
-    output_path_md = f'x5_iterations/{model_name.replace("/", "-")}_result.md'
-    output_path_txt = f'x5_iterations/{model_name.replace("/", "-")}_result.txt'
+    output_path_md = f'reports/{model_name.replace("/", "-")}_result.md'
+    output_path_txt = f'reports/{model_name.replace("/", "-")}_result.txt'
 
     with open(output_path_md, "w") as file:
         file.write(report)
