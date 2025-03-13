@@ -49,7 +49,7 @@ def count_issues(json_file_path):
 
 def main():
     # Change this to your JSON file path
-    json_file_path = 'error_analysis/gpt-0-shot.json'
+    json_file_path = 'error_analysis/llama3-1-shot.json'
     
     # Count the issues
     issue_counts = count_issues(json_file_path)
