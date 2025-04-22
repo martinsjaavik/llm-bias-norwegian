@@ -17,8 +17,6 @@ parser.add_argument('--model', choices=['local', 'remote'], default='remote', re
                     help='Choose the model to run the LLM')
 args = parser.parse_args()
 
-openai.api_key = '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'
-
 dataset_path = "data/dataset_small.csv"
 dataset = pd.read_csv(dataset_path)
 
