@@ -24,7 +24,7 @@ The thesis focuses on bias related to **age**, **disability**, and **nationality
 | Folder/File            | Description |
 |------------------------|-------------|
 | `api/`                 | Scripts for interacting with local and remote models|
-| `data/`                 | All datasets |
+| `data/`                | All datasets |
 | `reports/`, `outputs/` | Model outputs and generated evaluations |
 | `x5_iterations/`       | Multiple-run analyses (e.g., GPT-4, Llama3) |
 | `generate_reports.py`  | Generate final analysis and figures |
